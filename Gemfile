@@ -2,7 +2,7 @@ source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
 group :test do
   gem "rake"
-  gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 3.8.0'
+  gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.2.0'
   gem "rspec", '< 3.2.0'
   gem "rspec-puppet"
   gem "puppetlabs_spec_helper"
@@ -19,6 +19,11 @@ group :test do
   gem "puppet-lint-classes_and_types_beginning_with_digits-check"
   gem "puppet-lint-unquoted_string-check"
   gem 'puppet-lint-resource_reference_syntax'
+  gem 'httparty'
+  gem 'nokogiri'
+  gem 'json'
+  gem 'bigdecimal'
+
 
   gem 'json_pure', '<= 2.0.1' if RUBY_VERSION < '2.0.0'
 end

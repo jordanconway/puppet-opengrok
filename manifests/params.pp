@@ -9,6 +9,8 @@ class opengrok::params {
       $version = 'latest'
       $projects = []
       $manage_tomcat = true
+      $manage_git = true
+      $service_name = 'tomcat'
     }
     default: {
       fail("${::operatingsystem} not supported")

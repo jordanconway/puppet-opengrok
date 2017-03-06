@@ -11,6 +11,14 @@
     {
       "name": "puppetlabs-stdlib",
       "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "puppetlabs-tomcat",
+      "version_requirement": ">= 1.5.0"
+    },
+    {
+      "name": "puppetlabs-git",
+      "version_requirement": ">= 0.5.0"
     }
   ],
   "operatingsystem_support": [

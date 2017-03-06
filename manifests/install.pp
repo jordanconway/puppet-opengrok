@@ -4,7 +4,7 @@
 #
 class opengrok::install {
 
-  if $::manage_tomcat {
+  if $::opengrok::manage_tomcat {
     include ::tomcat
 
     tomcat::install {'tomcat':
@@ -12,13 +12,8 @@ class opengrok::install {
         package_name        => 'tomcat',
         notify              => Service['tomcat'],
     }
-    tomcat::install {'tomcat':
-        install_from_source => false,
-        package_name        => 'tomcat',
-        notify              => Service['tomcat'],
-    }
   }
-  if $::manage_git {
+  if $::opengrok::manage_git {
     include ::git
   }
 

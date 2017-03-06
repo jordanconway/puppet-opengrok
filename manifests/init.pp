@@ -13,12 +13,13 @@
 class opengrok (
 
   # Version to download from https://github.com/OpenGrok/OpenGrok/releases
-  $opengrok_version = $::opengrok::params::version,
+  String $opengrok_version = $::opengrok::params::version,
   # Array of git repos to browse
-  $manage_git = $::opengrok::params::manage_git,
-  $manage_tomcat = $::opengrok::params::manage_tomcat,
+  Boolean $manage_git = $::opengrok::params::manage_git,
+  Boolean $manage_tomcat = $::opengrok::params::manage_tomcat,
+  String $service_name = $::opengrok::params::service_name,
   # Array of git repos to browse
-  $git_pojects = $::opengrok::params::projects,
+  Optional[Array[String[1]]] $git_pojects = $::opengrok::params::projects,
 
 ) inherits ::opengrok::params {
 

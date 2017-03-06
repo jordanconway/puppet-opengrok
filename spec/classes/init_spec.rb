@@ -12,9 +12,9 @@ describe 'opengrok' do
           it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('opengrok::params') }
-          it { is_expected.to contain_class('opengrok::install').that_comes_before('opengrok::config') }
+          it { is_expected.to contain_class('opengrok::install').that_comes_before('Class[opengrok::config]') }
           it { is_expected.to contain_class('opengrok::config') }
-          it { is_expected.to contain_class('opengrok::service').that_subscribes_to('opengrok::config') }
+          it { is_expected.to contain_class('opengrok::service').that_subscribes_to('Class[opengrok::config]') }
 
           it { is_expected.to contain_service('opengrok') }
           it { is_expected.to contain_package('opengrok').with_ensure('present') }

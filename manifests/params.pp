@@ -5,13 +5,10 @@
 #
 class opengrok::params {
   case $::osfamily {
-    'Debian': {
-      $package_name = 'opengrok'
-      $service_name = 'opengrok'
-    }
     'RedHat', 'Amazon': {
-      $package_name = 'opengrok'
-      $service_name = 'opengrok'
+      $version = 'latest'
+      $projects = []
+      $manage_tomcat = true
     }
     default: {
       fail("${::operatingsystem} not supported")

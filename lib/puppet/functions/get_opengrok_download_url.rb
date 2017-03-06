@@ -1,6 +1,5 @@
 require 'httparty'
 require 'nokogiri'
-require 'json'
 
 Puppet::Functions.create_function(:get_opengrok_download_url) do
   dispatch :get do

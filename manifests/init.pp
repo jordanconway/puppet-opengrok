@@ -20,8 +20,9 @@ class opengrok (
   String $service_name = $::opengrok::params::service_name,
   Boolean $install_ctags = $::opengrok::params::install_ctags,
   String $ctags_package = $::opengrok::params::ctags_package,
+  String $opengrok_dir = $::opengrok::params::opengrok_dir,
   # Array of git repos to browse
-  Optional[Array[String[1]]] $git_pojects = $::opengrok::params::projects,
+  Optional[Hash] $git_pojects = $::opengrok::params::projects,
 
 ) inherits ::opengrok::params {
 

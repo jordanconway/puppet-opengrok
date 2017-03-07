@@ -13,7 +13,7 @@
 class opengrok (
 
   # Version to download from https://github.com/OpenGrok/OpenGrok/releases
-  String $opengrok_version = $::opengrok::params::version,
+  String $opengrok_url = $::opengrok::params::url,
   # Array of git repos to browse
   Boolean $manage_git = $::opengrok::params::manage_git,
   Boolean $manage_tomcat = $::opengrok::params::manage_tomcat,

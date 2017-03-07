@@ -6,7 +6,7 @@
 class opengrok::params {
   case $::osfamily {
     'RedHat', 'Amazon': {
-      $version = 'latest'
+      $url = 'https://github.com/OpenGrok/OpenGrok/releases/download/0.13-rc10/opengrok-0.13-rc10.tar.gz'
       $projects = []
       $manage_tomcat = true
       $manage_git = true

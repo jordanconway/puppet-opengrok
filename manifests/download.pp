@@ -4,9 +4,9 @@
 #
 class opengrok::download {
 
-  $download_url = get_opengrok_download_url($::opengrok::version)
+  $download_url = $::opengrok::url
 
-  $opengrok_fname = get_opengrok_fname($::opengrok::version)
+  $opengrok_fname = get_opengrok_fname($::opengrok::url)
 
   if 'zip' in $opengrok_fname {
     $has_zip = true
@@ -21,15 +21,15 @@ class opengrok::download {
     $tarball_name = $opengrok_fname
   }
 
-  $dir_name = "opengrok-${opengrok::version}"
-
   $extract_command = 'tar xfz %s --strip-components=1'
 
   $link_dir = '/opt/opengrok'
 
-  $install_dir = "/opt/${dir_name}"
+  $install_dir = "/opt/${opengrok_fname}"
 
-
+  file { $install_dir:
+    ensure =>  directory,
+  }
 
   if $has_zip {
     archive { "/tmp/${opengrok_fname}":

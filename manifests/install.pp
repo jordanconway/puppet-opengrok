@@ -17,11 +17,6 @@ class opengrok::install {
     include ::git
   }
 
-
-  #Install Gem prerequisites
-  $gems = ['httparty','nokogiri']
-  ensure_packages($gems, {'ensure' => 'present'})
-
   #setup opengrok directories
   file { '/var/opengrok/':
     ensure =>  directory,

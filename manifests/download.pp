@@ -21,14 +21,20 @@ class opengrok::download {
     $tarball_name = $opengrok_fname
   }
 
-  $extract_command = 'tar xfz %s --strip-components=1'
+  $version_name = $tarball_name[0,-8]
 
   $link_dir = '/opt/opengrok'
 
-  $install_dir = "/opt/${opengrok_fname}"
+  $install_dir = "/opt/${version_name}"
 
   file { $install_dir:
     ensure =>  directory,
+  }
+
+  file { $link_dir:
+    ensure  => link,
+    target  => $install_dir,
+    require => File[$install_dir],
   }
 
   if $has_zip {

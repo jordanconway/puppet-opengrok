@@ -4,7 +4,7 @@ Puppet::Functions.create_function(:get_opengrok_fname) do
   end
 
   def get_opengrok_fname(opengrok_url)
-    a = opengrok_url.lines('/')
+    a = opengrok_url.split('/')
     a.last
   end
 

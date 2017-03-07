@@ -18,6 +18,8 @@ class opengrok (
   Boolean $manage_git = $::opengrok::params::manage_git,
   Boolean $manage_tomcat = $::opengrok::params::manage_tomcat,
   String $service_name = $::opengrok::params::service_name,
+  Boolean $install_ctags = $::opengrok::params::install_ctags,
+  String $ctags_package = $::opengrok::params::ctags_package,
   # Array of git repos to browse
   Optional[Array[String[1]]] $git_pojects = $::opengrok::params::projects,
 

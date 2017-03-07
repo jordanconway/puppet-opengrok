@@ -8,6 +8,8 @@ class opengrok::params {
     'RedHat', 'Amazon': {
       $url = 'https://github.com/OpenGrok/OpenGrok/releases/download/0.13-rc10/opengrok-0.13-rc10.tar.gz'
       $projects = []
+      $install_ctags = true
+      $ctags_package = 'ctags'
       $manage_tomcat = true
       $manage_git = true
       $service_name = 'tomcat'

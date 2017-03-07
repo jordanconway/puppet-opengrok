@@ -17,6 +17,10 @@ class opengrok::install {
     include ::git
   }
 
+  if $::opengrok::install_ctags {
+    ensure_packages([$::opengrok::ctags_package], {ensure => 'present'})
+  }
+
   #setup opengrok directories
   file { '/var/opengrok/':
     ensure =>  directory,

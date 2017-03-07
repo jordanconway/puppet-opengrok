@@ -4,5 +4,6 @@ fixtures:
     tomcat: "https://github.com/puppetlabs/puppetlabs-tomcat.git"
     archive: "https://github.com/voxpupuli/puppet-archive.git"
     git: "https://github.com/puppetlabs/puppetlabs-git.git"
+    vcsrepo: "https://github.com/puppetlabs/puppetlabs-vcsrepo"
   symlinks:
     opengrok: "#{source_dir}"

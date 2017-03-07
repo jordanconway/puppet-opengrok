@@ -23,7 +23,7 @@ class opengrok::download {
 
   $version_name = $tarball_name[0,-8]
 
-  $link_dir = '/opt/opengrok'
+  $link_dir = $::opengrok::opengrok_dir
 
   $install_dir = "/opt/${version_name}"
 

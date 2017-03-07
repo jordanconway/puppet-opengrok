@@ -17,6 +17,10 @@
       "version_requirement": ">= 1.5.0"
     },
     {
+      "name": "puppet-archive",
+      "version_requirement": ">= 1.2.0"
+    },
+    {
       "name": "puppetlabs-git",
       "version_requirement": ">= 0.5.0"
     }

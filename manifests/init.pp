@@ -22,7 +22,7 @@ class opengrok (
   String $ctags_package = $::opengrok::params::ctags_package,
   String $opengrok_dir = $::opengrok::params::opengrok_dir,
   # Array of git repos to browse
-  Optional[Hash] $git_pojects = $::opengrok::params::projects,
+  Optional[Hash] $projects = $::opengrok::params::projects,
 
 ) inherits ::opengrok::params {
 

@@ -9,7 +9,8 @@ class opengrok::config {
   if is_hash($projects) {
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
-        * => $options,
+        *      => $options,
+        notify => Exec['opengrok_index'],
       }
     }
   }

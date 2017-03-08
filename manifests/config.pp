@@ -11,7 +11,7 @@ class opengrok::config {
       ::opengrok::project { $resource:
         *       => $options,
         notify  => Exec['opengrok_index'],
-        require => Exex['opengrok_deploy'],
+        require => Exec['opengrok_deploy'],
       }
     }
   }

@@ -9,8 +9,9 @@ class opengrok::config {
   if is_hash($projects) {
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
-        *      => $options,
-        notify => Exec['opengrok_index'],
+        *       => $options,
+        notify  => Exec['opengrok_index'],
+        require => Exex['opengrok_deploy'],
       }
     }
   }
@@ -27,12 +28,14 @@ class opengrok::config {
   exec { 'opengrok_deploy':
     command => "${::opengrok::opengrok_dir}/bin/OpenGrok deploy",
     creates => '/var/lib/tomcat/webapps/source.war',
+    require =>  File["${::opengrok::opengrok_dir}/bin/OpenGrok"],
   }
 
   #run index
   exec { 'opengrok_index':
     command => "${::opengrok::opengrok_dir}/bin/OpenGrok index",
     creates => '/var/opengrok/etc/configuration.xml',
+    require =>  File["${::opengrok::opengrok_dir}/bin/OpenGrok"],
   }
 
 }

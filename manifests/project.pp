@@ -4,7 +4,7 @@ define opengrok::project (
   Enum['present', 'absent', 'latest'] $ensure = present,
   String $provider = 'git',
   String $source = undef,
-  String $revision = undef,
+  Optional[String[1]] $revision = undef,
 ){
   include ::vcsrepo
   include ::opengrok::params

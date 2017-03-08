@@ -6,7 +6,6 @@ define opengrok::project (
   String $source = undef,
   Optional[String[1]] $revision = undef,
 ){
-  include ::vcsrepo
   include ::opengrok::params
 
   vcsrepo { "/var/opengrok/src/${title}":

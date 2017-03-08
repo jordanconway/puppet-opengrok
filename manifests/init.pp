@@ -28,17 +28,17 @@
 # @param projects A hash of git projects to be served by OpenGrok.
 #   This can is an alternative to defining opengrok::project types
 #   Valid options: Hash
-#   @example Hash containing two git projects to be served by OpenGrok
-#     projects {
-#       puppet-opengrok => {
-#         source        => 'https://github.com/jordanconway/puppet-opengrok.git'
-#         ensure        => 'latest'
-#       },
-#       opengrok        => {
-#         source        => 'https://github.com/OpenGrok/OpenGrok.git'
-#         ensure        => 'latest'
-#       }
+# @example Hash containing two git projects to be served by OpenGrok
+#   projects {
+#     puppet-opengrok => {
+#       source        => 'https://github.com/jordanconway/puppet-opengrok.git'
+#       ensure        => 'latest'
+#     },
+#     opengrok        => {
+#       source        => 'https://github.com/OpenGrok/OpenGrok.git'
+#       ensure        => 'latest'
 #     }
+#   }
 # @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'

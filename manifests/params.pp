@@ -6,7 +6,7 @@
 class opengrok::params {
   case $::osfamily {
     'RedHat', 'Amazon': {
-      $url = 'https://github.com/OpenGrok/OpenGrok/releases/download/0.13-rc10/opengrok-0.13-rc10.tar.gz'
+      $url = 'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'
       $projects = {}
       $install_ctags = true
       $ctags_package = 'ctags'

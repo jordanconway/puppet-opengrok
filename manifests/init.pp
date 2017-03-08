@@ -6,8 +6,17 @@
 # @example Declaring the class
 #   include opengrok
 #
-# Parameters
-# ----------
+# @example Defining the opengrok::projects Hash with two git projects
+#   projects {
+#     puppet-opengrok => {
+#       source        => 'https://github.com/jordanconway/puppet-opengrok.git'
+#       ensure        => 'latest'
+#     },
+#     opengrok        => {
+#       source        => 'https://github.com/OpenGrok/OpenGrok.git'
+#       ensure        => 'latest'
+#     }
+#   }
 #
 # @param opengrok_url Specifies the url to download the OpenGrok binaries from.
 #   Valid options: A String (containing an url pointing to a .zip/tar.gz binary
@@ -28,17 +37,6 @@
 # @param projects A hash of git projects to be served by OpenGrok.
 #   This can is an alternative to defining opengrok::project types
 #   Valid options: Hash
-# @example Hash containing two git projects to be served by OpenGrok
-#   projects {
-#     puppet-opengrok => {
-#       source        => 'https://github.com/jordanconway/puppet-opengrok.git'
-#       ensure        => 'latest'
-#     },
-#     opengrok        => {
-#       source        => 'https://github.com/OpenGrok/OpenGrok.git'
-#       ensure        => 'latest'
-#     }
-#   }
 # @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'

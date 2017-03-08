@@ -7,7 +7,7 @@
 #   include opengrok
 #
 # @example Defining the opengrok::projects Hash with two git projects
-#   projects {
+#   opengrok::projects {
 #     puppet-opengrok => {
 #       source        => 'https://github.com/jordanconway/puppet-opengrok.git'
 #       ensure        => 'latest'

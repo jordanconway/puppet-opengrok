@@ -82,8 +82,6 @@
 
 <p>This is the basic class needed to install and configure an OpenGrok instance.</p>
 
-<h2>Parameters</h2>
-
   </div>
 </div>
 <div class="tags">
@@ -98,7 +96,7 @@
       <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_opengrok'>opengrok</span></code></pre>
     
       
-        <p class="example_title"><div class='inline'><p>Hash containing two git projects to be served by OpenGrok</p>
+        <p class="example_title"><div class='inline'><p>Defining the opengrok::projects Hash with two git projects</p>
 </div></p>
       
       <pre class="example code"><code>projects {
@@ -292,6 +290,8 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
         <pre class="lines">
 
 
+44
+45
 46
 47
 48
@@ -310,12 +310,10 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
 61
 62
 63
-64
-65
-66</pre>
+64</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 46</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 44</span>
 
 class opengrok (
 
@@ -345,7 +343,7 @@ class opengrok (
 </div>
 
       <div id="footer">
-  Generated on Wed Mar  8 16:16:49 2017 by
+  Generated on Wed Mar  8 16:19:42 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

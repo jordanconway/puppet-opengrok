@@ -600,7 +600,7 @@ DetermineWarDirectoryTomcat()
         ${OPENGROK_TOMCAT_BASE} \
         /var/lib/tomcat8	\
         /var/tomcat8  \
-        /var/lib/tomcat
+        <%= scope['opengrok::catalina_home'] %>
     do
         if [ -d "${prefix}/webapps" ]
         then

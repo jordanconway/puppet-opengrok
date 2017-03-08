@@ -23,6 +23,7 @@ class opengrok (
   String $opengrok_dir = $::opengrok::params::opengrok_dir,
   # Array of git repos to browse
   Optional[Hash] $projects = $::opengrok::params::projects,
+  String $catalina_home = $::opengrok::params::catalina_home,
 
 ) inherits ::opengrok::params {
 

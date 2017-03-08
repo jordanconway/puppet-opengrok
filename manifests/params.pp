@@ -14,6 +14,7 @@ class opengrok::params {
       $opengrok_dir = '/opt/opengrok'
       $manage_git = true
       $service_name = 'tomcat'
+      $catalina_home = '/var/lib/tomcat'
     }
     default: {
       fail("${::operatingsystem} not supported")

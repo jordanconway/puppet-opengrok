@@ -1,5 +1,5 @@
 # Define opengrok::project
-# 
+#
 # This define lets you add git projects to OpenGrok
 #
 # @example Defining a git project for OpenGrok
@@ -16,7 +16,6 @@
 #   Example Value: 'https://github.com/jordanconway/puppet-opengrok.git'
 # @param revision A git revision reference to pin the repo to. Valid Options: String
 #   Example Value: '9db36f3c12cb57bde8c2cdf4b66bf1745bea9968'
-
 define opengrok::project (
   Enum['present', 'absent', 'latest'] $ensure = latest,
   String $provider = 'git',

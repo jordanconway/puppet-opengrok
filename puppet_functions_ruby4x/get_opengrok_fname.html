@@ -64,8 +64,8 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>
-      doc/lib/puppet/functions/get_opengrok_fname.rb<span class="defines">,<br />
-      lib/puppet/functions/get_opengrok_fname.rb</div>
+      lib/puppet/functions/get_opengrok_fname.rb<span class="defines">,<br />
+      doc/lib/puppet/functions/get_opengrok_fname.rb</div>
       
     </dd>
   </dl>
@@ -80,18 +80,30 @@
   <div class="tags overload overload_item">
     <span class="overload">
       <span class="overload_item">
-        <span class="signature first" style="margin-left: 0px;"><strong>get_opengrok_fname(String $opengrok_url)</strong> &#x21d2; <tt>Any</tt> </span>
+        <span class="signature first" style="margin-left: 0px;"><strong>get_opengrok_fname(String $opengrok_url)</strong> &#x21d2; <tt>String</tt> </span>
       </span>
     </span>
   </div>
   
   <div class="docstring">
     <div class="discussion">
-      
+      <p>get_opengrok_fname function</p>
+
     </div>
   </div>
   <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>Calling the function</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_get_opengrok_fname'>get_opengrok_fname</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+
 <p class="tag_title">Parameters:</p>
 <ul class="param">
   
@@ -104,6 +116,10 @@
       
       
       
+        &mdash;
+        <div class='inline'><p>Takes a full download url from <a href="https://github.com/OpenGrok/OpenGrok/releases">https://github.com/OpenGrok/OpenGrok/releases</a></p>
+</div>
+      
     </li>
   
 </ul>
@@ -114,9 +130,13 @@
     <li>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'><p>Returns a string of just the filename of the download.</p>
+</div>
       
     </li>
   
@@ -129,7 +149,6 @@
         <pre class="lines">
 
 
-1
 2
 3
 4
@@ -139,13 +158,22 @@
 8
 9
 10
-11</pre>
+11
+12
+13
+14
+15
+16</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'doc/lib/puppet/functions/get_opengrok_fname.rb', line 1</span>
+        <pre class="code"><span class="info file"># File 'lib/puppet/functions/get_opengrok_fname.rb', line 2</span>
 
 <span class='const'>Puppet</span><span class='op'>::</span><span class='const'>Functions</span><span class='period'>.</span><span class='id identifier rubyid_create_function'>create_function</span><span class='lparen'>(</span><span class='symbol'>:get_opengrok_fname</span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_dispatch'>dispatch</span> <span class='symbol'>:get_opengrok_fname</span> <span class='kw'>do</span>
+  <span class='comment'># @param opengrok_url Takes a full download url from https://github.com/OpenGrok/OpenGrok/releases
+</span>  <span class='comment'># @return [String] Returns a string of just the filename of the download.
+</span>  <span class='comment'># @example Calling the function
+</span>  <span class='comment'>#   get_opengrok_fname(&#39;https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip&#39;)
+</span>  <span class='id identifier rubyid_dispatch'>dispatch</span> <span class='symbol'>:get_opengrok_fname</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_param'>param</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>String</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:opengrok_url</span>
   <span class='kw'>end</span>
 
@@ -164,7 +192,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Mar  8 16:55:04 2017 by
+  Generated on Wed Mar  8 17:00:52 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

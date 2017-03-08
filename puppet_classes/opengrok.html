@@ -97,6 +97,21 @@
       
       <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_opengrok'>opengrok</span></code></pre>
     
+      
+        <p class="example_title"><div class='inline'><p>Hash containing two git projects to be served by OpenGrok</p>
+</div></p>
+      
+      <pre class="example code"><code>projects {
+  puppet-opengrok =&gt; {
+    source        =&gt; &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;
+    ensure        =&gt; &#39;latest&#39;
+  },
+  opengrok        =&gt; {
+    source        =&gt; &#39;https://github.com/OpenGrok/OpenGrok.git&#39;
+    ensure        =&gt; &#39;latest&#39;
+  }
+}</code></pre>
+    
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -243,18 +258,7 @@ Valid options: Absolute Path. Example Value: &#39;/opt/opengrok&#39;</p>
         &mdash;
         <div class='inline'><p>A hash of git projects to be served by OpenGrok.
 This can is an alternative to defining opengrok::project types
-Valid options: Hash
-@example Hash containing two git projects to be served by OpenGrok
-  projects {
-    puppet-opengrok =&gt; {
-      source        =&gt; &#39;<a href="https://github.com/jordanconway/puppet-opengrok.git">https://github.com/jordanconway/puppet-opengrok.git</a>&#39;
-      ensure        =&gt; &#39;latest&#39;
-    },
-    opengrok        =&gt; {
-      source        =&gt; &#39;<a href="https://github.com/OpenGrok/OpenGrok.git">https://github.com/OpenGrok/OpenGrok.git</a>&#39;
-      ensure        =&gt; &#39;latest&#39;
-    }
-  }</p>
+Valid options: Hash</p>
 </div>
       
     </li>
@@ -341,7 +345,7 @@ class opengrok (
 </div>
 
       <div id="footer">
-  Generated on Wed Mar  8 16:13:12 2017 by
+  Generated on Wed Mar  8 16:16:49 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

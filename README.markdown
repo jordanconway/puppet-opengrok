@@ -13,48 +13,87 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+This module installs and configures a basic [OpenGrok](https://opengrok.github.io/OpenGrok/) instance. Currently it is only tested with Puppet > 4.2 and CentOS 7.x but with a little work it should be easily extendable to other systems. (Pull requests welcome!)
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
+The basic class ::opengrok will install and configure OpenGrok at `http://${::fqdn}:8080/source` it is reccomended to use a profile/role to put a reverse proxy infront of this.
 
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+You can add source repos to browse with OpenGrok by defining them with the `opengrok::projects` parameter hash or adding them with the `opengrok::project` defined type.
 
 ## Setup
 
 ### What opengrok affects
 
 * A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
+* Created Files/Directories:
+  * `/var/opengrok`
+  * `/opt/opengrok`
+* Default installed packages:
+  * `ctags` (CentOS)
+* Other modules included with default options:
+  * `::git` [puppetlabs-git](https://forge.puppet.com/puppetlabs/git)
+  * `::tomcat` [puppetlabs-tomcat](https://forge.puppet.com/puppetlabs/tomcat)
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
+You should have pluginsync enabled in your Puppet environment.
 
 ### Beginning with opengrok
 
-The very basic steps needed for a user to get the module up and running. 
+All you need to do to get a running OpenGrok instance is
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+`include ::opengrok`
+
+and to define at least one source either with the `::opengrok::projects` parameter hash or with the `opengrok::project` defined type
+
+#### Parameter Hash Examples
+##### Puppet DSL
+```
+opengrok::projects {
+  puppet-opengrok => {
+    source        => 'https://github.com/jordanconway/puppet-opengrok.git',
+    ensure        => 'latest',
+  },
+  opengrok        => {
+    source        => 'https://github.com/OpenGrok/OpenGrok.git',
+    ensure        => 'latest',
+  }
+}
+```
+#### Hiera
+#####
+```
+opengrok::projects:
+  puppet-opengrok:
+    source: 'https://github.com/jordanconway/puppet-opengrok.git'
+    ensure: 'latest'
+  opengrok:
+    source: 'https://github.com/OpenGrok/OpenGrok.git'
+    ensure: 'latest'
+```
+
+#### Defined type Examples
+
+```
+  opengrok::project{ 'puppet-opengrok':
+    source => 'https://github.com/jordanconway/puppet-opengrok.git',
+    ensure => 'latest',
+  }
+```
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+Pretty straight forward and explained in the above section.
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+This module is documented with puppet-strings you can build the documentation yourself with puppet-strings or see it on my [github pages](https://jordanconway.github.io/puppet-opengrok/)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Currently only tested and expected to work with Puppet > 4.2 and CentOS 7.x
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+Pull request welcome at https://github.com/jordanconway/puppet-opengrok/ (DCO commits are appreciated)

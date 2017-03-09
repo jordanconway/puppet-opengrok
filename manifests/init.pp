@@ -9,12 +9,12 @@
 # @example Defining the opengrok::projects Hash with two git projects
 #   opengrok::projects {
 #     puppet-opengrok => {
-#       source        => 'https://github.com/jordanconway/puppet-opengrok.git'
-#       ensure        => 'latest'
+#       source        => 'https://github.com/jordanconway/puppet-opengrok.git',
+#       ensure        => 'latest',
 #     },
 #     opengrok        => {
-#       source        => 'https://github.com/OpenGrok/OpenGrok.git'
-#       ensure        => 'latest'
+#       source        => 'https://github.com/OpenGrok/OpenGrok.git',
+#       ensure        => 'latest',
 #     }
 #   }
 #

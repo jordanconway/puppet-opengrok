@@ -1,4 +1,5 @@
-# == Class opengrok::install
+# Class opengrok::install
+# ===========================
 #
 # This class is called from opengrok for install.
 #

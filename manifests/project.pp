@@ -1,4 +1,5 @@
 # Define opengrok::project
+# ===========================
 #
 # This define lets you add git projects to OpenGrok
 #

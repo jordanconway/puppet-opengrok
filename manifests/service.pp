@@ -1,4 +1,5 @@
-# == Class opengrok::service
+# Class opengrok::service
+# ===========================
 #
 # This class is meant to be called from opengrok.
 # It ensure the service is running.

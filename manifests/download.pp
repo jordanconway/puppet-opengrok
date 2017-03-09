@@ -1,4 +1,5 @@
-# == Class opengrok::download
+# Class opengrok::download
+# ===========================
 #
 # This class is called from opengrok for service download.
 #

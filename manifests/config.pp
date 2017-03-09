@@ -1,4 +1,5 @@
-# == Class opengrok::config
+# Class opengrok::config
+# ===========================
 #
 # This class is called from opengrok for service config.
 #

@@ -1,4 +1,5 @@
 # Class opengrok::params
+# ===========================
 #
 # This class is meant to be called from opengrok.
 # It sets variables according to platform.

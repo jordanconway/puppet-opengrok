@@ -77,13 +77,13 @@
 
 <h2>Overview</h2>
 
-<p>A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       </p>
+<p>This module installs and configures a basic <a href="https://opengrok.github.io/OpenGrok/">OpenGrok</a> instance. Currently it is only tested with Puppet &gt; 4.2 and CentOS 7.x but with a little work it should be easily extendable to other systems. (Pull requests welcome!)</p>
 
 <h2>Module Description</h2>
 
-<p>If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: &quot;What does this module <em>do</em>?&quot; and &quot;Why would I use it?&quot;</p>
+<p>The basic class ::opengrok will install and configure OpenGrok at <code>http://${::fqdn}:8080/source</code> it is reccomended to use a profile/role to put a reverse proxy infront of this.</p>
 
-<p>If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.</p>
+<p>You can add source repos to browse with OpenGrok by defining them with the <code>opengrok::projects</code> parameter hash or adding them with the <code>opengrok::project</code> defined type.</p>
 
 <h2>Setup</h2>
 
@@ -91,43 +91,91 @@
 
 <ul>
 <li>A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it&#39;s installed on.</li>
-<li>This is a great place to stick any warnings.</li>
-<li>Can be in list or paragraph form. </li>
+<li>Created Files/Directories:
+
+<ul>
+<li><code>/var/opengrok</code></li>
+<li><code>/opt/opengrok</code></li>
+</ul></li>
+<li>Default installed packages:
+
+<ul>
+<li><code>ctags</code> (CentOS)</li>
+</ul></li>
+<li>Other modules included with default options:
+
+<ul>
+<li><code>::git</code> <a href="https://forge.puppet.com/puppetlabs/git">puppetlabs-git</a></li>
+<li><code>::tomcat</code> <a href="https://forge.puppet.com/puppetlabs/tomcat">puppetlabs-tomcat</a></li>
+</ul></li>
 </ul>
 
-<h3>Setup Requirements <strong>OPTIONAL</strong></h3>
+<h3>Setup Requirements</h3>
 
-<p>If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. </p>
+<p>You should have pluginsync enabled in your Puppet environment.</p>
 
 <h3>Beginning with opengrok</h3>
 
-<p>The very basic steps needed for a user to get the module up and running. </p>
+<p>All you need to do to get a running OpenGrok instance is</p>
 
-<p>If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see <a href="http://forge.puppetlabs.com/puppetlabs/firewall">http://forge.puppetlabs.com/puppetlabs/firewall</a>).</p>
+<p><code>include ::opengrok</code></p>
+
+<p>and to define at least one source either with the <code>::opengrok::projects</code> parameter hash or with the <code>opengrok::project</code> defined type</p>
+
+<h4>Parameter Hash Examples</h4>
+
+<h5>Puppet DSL</h5>
+
+<pre class="code ruby"><code class="ruby">opengrok::projects {
+  puppet-opengrok =&gt; {
+    source        =&gt; &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;,
+    ensure        =&gt; &#39;latest&#39;,
+  },
+  opengrok        =&gt; {
+    source        =&gt; &#39;https://github.com/OpenGrok/OpenGrok.git&#39;,
+    ensure        =&gt; &#39;latest&#39;,
+  }
+}
+</code></pre>
+
+<h4>Hiera</h4>
+
+<pre class="code ruby"><code class="ruby">opengrok::projects:
+  puppet-opengrok:
+    source: &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;
+    ensure: &#39;latest&#39;
+  opengrok:
+    source: &#39;https://github.com/OpenGrok/OpenGrok.git&#39;
+    ensure: &#39;latest&#39;
+</code></pre>
+
+<h4>Defined type Examples</h4>
+
+<pre class="code ruby"><code class="ruby">  opengrok::project{ &#39;puppet-opengrok&#39;:
+    source =&gt; &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;,
+    ensure =&gt; &#39;latest&#39;,
+  }
+</code></pre>
 
 <h2>Usage</h2>
 
-<p>Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. </p>
+<p>Pretty straight forward and explained in the above section.</p>
 
 <h2>Reference</h2>
 
-<p>Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don&#39;t need to mess with things. (We are working on automating this section!)</p>
+<p>This module is documented with puppet-strings you can build the documentation yourself with puppet-strings or see it on my <a href="https://jordanconway.github.io/puppet-opengrok/">github pages</a></p>
 
 <h2>Limitations</h2>
 
-<p>This is where you list OS compatibility, version compatibility, etc.</p>
+<p>Currently only tested and expected to work with Puppet &gt; 4.2 and CentOS 7.x</p>
 
 <h2>Development</h2>
 
-<p>Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.</p>
-
-<h2>Release Notes/Contributors/Etc <strong>Optional</strong></h2>
-
-<p>If you aren&#39;t using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the <code>##</code> header. </p>
+<p>Pull request welcome at <a href="https://github.com/jordanconway/puppet-opengrok/">https://github.com/jordanconway/puppet-opengrok/</a> (DCO commits are appreciated)</p>
 </div></div>
 
       <div id="footer">
-  Generated on Wed Mar  8 17:25:34 2017 by
+  Generated on Thu Mar  9 10:09:05 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

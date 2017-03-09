@@ -71,7 +71,7 @@
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>Define opengrok::project</p>
+    <h1>Define opengrok::project</h1>
 
 <p>This define lets you add git projects to OpenGrok</p>
 
@@ -177,7 +177,6 @@ Example Value: &#39;9db36f3c12cb57bde8c2cdf4b66bf1745bea9968&#39;</p>
         <pre class="lines">
 
 
-19
 20
 21
 22
@@ -193,10 +192,11 @@ Example Value: &#39;9db36f3c12cb57bde8c2cdf4b66bf1745bea9968&#39;</p>
 32
 33
 34
-35</pre>
+35
+36</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/project.pp', line 19</span>
+        <pre class="code"><span class="info file"># File 'manifests/project.pp', line 20</span>
 
 define opengrok::project (
   Enum[&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;] $ensure = latest,
@@ -222,7 +222,7 @@ define opengrok::project (
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:09:05 2017 by
+  Generated on Thu Mar  9 10:15:17 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

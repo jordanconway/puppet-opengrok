@@ -11,12 +11,12 @@ describe 'opengrok' do
         context "opengrok class without any parameters" do
           it { is_expected.to compile.with_all_deps }
 
+          it { is_expected.to contain_class('opengrok') }
           it { is_expected.to contain_class('opengrok::params') }
           it { is_expected.to contain_class('opengrok::install').that_comes_before('Class[opengrok::download]') }
           it { is_expected.to contain_class('opengrok::download').that_comes_before('Class[opengrok::config]') }
           it { is_expected.to contain_class('opengrok::config') }
           it { is_expected.to contain_class('opengrok::service').that_subscribes_to('Class[opengrok::config]') }
-
         end
       end
     end

@@ -3,23 +3,22 @@
 #
 # This class is called from opengrok for install.
 #
-class opengrok::install {
+class opengrok::install(
+  $manage_tomcat,
+  $manage_git,
+  $install_ctags,
+  $ctags_package,
+){
 
-  if $::opengrok::manage_tomcat {
+  if $manage_tomcat {
     include ::tomcat
-
-    tomcat::install {'tomcat':
-        install_from_source => false,
-        package_name        => 'tomcat',
-        notify              => Service['tomcat'],
-    }
   }
-  if $::opengrok::manage_git {
+  if $manage_git {
     include ::git
   }
 
-  if $::opengrok::install_ctags {
-    ensure_packages([$::opengrok::ctags_package], {ensure => 'present'})
+  if $install_ctags {
+    ensure_packages([$ctags_package], {ensure => 'present'})
   }
 
   #setup opengrok directories

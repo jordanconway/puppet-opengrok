@@ -3,8 +3,8 @@
 #
 # This class is meant to be called from opengrok.
 # It sets variables according to platform.
-# @example default $url
-#   $url = 'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'
+# @example default $download_url
+#   $download_url = 'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'
 # @example default $projects
 #   $projects = {}
 # @example default $install_ctags
@@ -25,7 +25,7 @@
 class opengrok::params {
   case $::osfamily {
     'RedHat', 'Amazon': {
-      $url = 'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'
+      $download_url = 'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'
       $projects = {}
       $install_ctags = true
       $ctags_package = 'ctags'

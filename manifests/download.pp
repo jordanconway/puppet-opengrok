@@ -3,11 +3,12 @@
 #
 # This class is called from opengrok for service download.
 #
-class opengrok::download {
+class opengrok::download(
+  $download_url,
+  $opengrok_dir,
+){
 
-  $download_url = $::opengrok::url
-
-  $opengrok_fname = get_opengrok_fname($::opengrok::url)
+  $opengrok_fname = get_opengrok_fname($download_url)
 
   if 'zip' in $opengrok_fname {
     $has_zip = true
@@ -24,7 +25,6 @@ class opengrok::download {
 
   $version_name = $tarball_name[0,-8]
 
-  $link_dir = $::opengrok::opengrok_dir
 
   $install_dir = "/opt/${version_name}"
 
@@ -32,7 +32,7 @@ class opengrok::download {
     ensure =>  directory,
   }
 
-  file { $link_dir:
+  file { $opengrok_dir:
     ensure  => link,
     target  => $install_dir,
     require => File[$install_dir],

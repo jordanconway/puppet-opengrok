@@ -18,7 +18,7 @@
 #     }
 #   }
 #
-# @param opengrok_url Specifies the url to download the OpenGrok binaries from.
+# @param download_url Specifies the url to download the OpenGrok binaries from.
 #   Valid options: A String (containing an url pointing to a .zip/tar.gz binary
 #   release from https://github.com/OpenGrok/OpenGrok/releases/). Example Value:
 #   'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'.
@@ -43,7 +43,7 @@
 #
 class opengrok (
 
-  Pattern[/^https?[^\s]*(\.zip|tar\.gz)$/] $opengrok_url = $::opengrok::params::url,
+  Pattern[/^https?[^\s]*(\.zip|tar\.gz)$/] $download_url = $::opengrok::params::download_url,
   Boolean $manage_git = $::opengrok::params::manage_git,
   Boolean $manage_tomcat = $::opengrok::params::manage_tomcat,
   String $service_name = $::opengrok::params::service_name,
@@ -55,10 +55,24 @@ class opengrok (
 
 ) inherits ::opengrok::params {
 
-  class { '::opengrok::install': } ->
-  class { '::opengrok::download': } ->
-  class { '::opengrok::config': } ~>
-  class { '::opengrok::service': } ->
+  class { '::opengrok::install':
+    manage_tomcat => $manage_tomcat,
+    manage_git    => $manage_git,
+    install_ctags => $install_ctags,
+    ctags_package => $ctags_package,
+  } ->
+  class { '::opengrok::download':
+    download_url => $download_url,
+    opengrok_dir => $opengrok_dir,
+  } ->
+  class { '::opengrok::config':
+    opengrok_dir  => $opengrok_dir,
+    projects      => $projects,
+    catalina_home => $catalina_home,
+  } ~>
+  class { '::opengrok::service':
+    service_name => $service_name,
+  } ->
   Class['::opengrok']
 
 }

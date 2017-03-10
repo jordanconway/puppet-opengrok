@@ -3,10 +3,13 @@
 #
 # This class is called from opengrok for service config.
 #
-class opengrok::config {
+class opengrok::config (
+  $projects,
+  $opengrok_dir,
+  $catalina_home,
+){
 
   #get sources
-  $projects = $::opengrok::projects
   if is_hash($projects) {
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
@@ -19,7 +22,7 @@ class opengrok::config {
 
   #fix opengrok scipt
 
-  file {"${::opengrok::opengrok_dir}/bin/OpenGrok":
+  file {"${opengrok_dir}/bin/OpenGrok":
     ensure  => present,
     content => template('opengrok/OpenGrok.erb'),
     mode    => '0555',
@@ -27,16 +30,16 @@ class opengrok::config {
 
   #run depoloy script
   exec { 'opengrok_deploy':
-    command => "${::opengrok::opengrok_dir}/bin/OpenGrok deploy",
+    command => "${opengrok_dir}/bin/OpenGrok deploy",
     creates => '/var/lib/tomcat/webapps/source.war',
-    require =>  File["${::opengrok::opengrok_dir}/bin/OpenGrok"],
+    require =>  File["${opengrok_dir}/bin/OpenGrok"],
   }
 
   #run index
   exec { 'opengrok_index':
-    command => "${::opengrok::opengrok_dir}/bin/OpenGrok index",
+    command => "${opengrok_dir}/bin/OpenGrok index",
     creates => '/var/opengrok/etc/configuration.xml',
-    require =>  File["${::opengrok::opengrok_dir}/bin/OpenGrok"],
+    require =>  File["${opengrok_dir}/bin/OpenGrok"],
   }
 
 }

@@ -18,9 +18,9 @@
 # @param revision A git revision reference to pin the repo to. Valid Options: String
 #   Example Value: '9db36f3c12cb57bde8c2cdf4b66bf1745bea9968'
 define opengrok::project (
+  Pattern[/^(https?|git)[^\s]*\.git$/] $source,
   Enum['present', 'absent', 'latest'] $ensure = latest,
-  String $provider = 'git',
-  String $source = undef,
+  Enum['git'] $provider = 'git',
   Optional[String[1]] $revision = undef,
 ){
   include ::opengrok::params

@@ -12,5 +12,4 @@ Puppet::Functions.create_function(:get_opengrok_fname) do
     a = opengrok_url.split('/')
     a.last
   end
-
 end

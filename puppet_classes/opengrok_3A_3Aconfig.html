@@ -80,7 +80,44 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>projects</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>opengrok_dir</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>catalina_home</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -125,15 +162,21 @@
 39
 40
 41
-42</pre>
+42
+43
+44
+45</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
 
-class opengrok::config {
+class opengrok::config (
+  $projects,
+  $opengrok_dir,
+  $catalina_home,
+){
 
   #get sources
-  $projects = $::opengrok::projects
   if is_hash($projects) {
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
@@ -146,7 +189,7 @@ class opengrok::config {
 
   #fix opengrok scipt
 
-  file {&quot;${::opengrok::opengrok_dir}/bin/OpenGrok&quot;:
+  file {&quot;${opengrok_dir}/bin/OpenGrok&quot;:
     ensure  =&gt; present,
     content =&gt; template(&#39;opengrok/OpenGrok.erb&#39;),
     mode    =&gt; &#39;0555&#39;,
@@ -154,16 +197,16 @@ class opengrok::config {
 
   #run depoloy script
   exec { &#39;opengrok_deploy&#39;:
-    command =&gt; &quot;${::opengrok::opengrok_dir}/bin/OpenGrok deploy&quot;,
+    command =&gt; &quot;${opengrok_dir}/bin/OpenGrok deploy&quot;,
     creates =&gt; &#39;/var/lib/tomcat/webapps/source.war&#39;,
-    require =&gt;  File[&quot;${::opengrok::opengrok_dir}/bin/OpenGrok&quot;],
+    require =&gt;  File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
   }
 
   #run index
   exec { &#39;opengrok_index&#39;:
-    command =&gt; &quot;${::opengrok::opengrok_dir}/bin/OpenGrok index&quot;,
+    command =&gt; &quot;${opengrok_dir}/bin/OpenGrok index&quot;,
     creates =&gt; &#39;/var/opengrok/etc/configuration.xml&#39;,
-    require =&gt;  File[&quot;${::opengrok::opengrok_dir}/bin/OpenGrok&quot;],
+    require =&gt;  File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
   }
 
 }</pre>
@@ -174,7 +217,7 @@ class opengrok::config {
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

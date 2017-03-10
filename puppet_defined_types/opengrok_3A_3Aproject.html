@@ -118,7 +118,7 @@ strings &#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;. Example Value: &#
         <span class='name'>provider</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Enum['git']</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;git&#39;</tt>)</em>
@@ -136,10 +136,8 @@ Valid Options: String. Example Value: &#39;git&#39;</p>
         <span class='name'>source</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Pattern[/^(https?|git)[^\s]*\.git$/]</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
@@ -199,9 +197,9 @@ Example Value: &#39;9db36f3c12cb57bde8c2cdf4b66bf1745bea9968&#39;</p>
         <pre class="code"><span class="info file"># File 'manifests/project.pp', line 20</span>
 
 define opengrok::project (
+  Pattern[/^(https?|git)[^\s]*\.git$/] $source,
   Enum[&#39;present&#39;, &#39;absent&#39;, &#39;latest&#39;] $ensure = latest,
-  String $provider = &#39;git&#39;,
-  String $source = undef,
+  Enum[&#39;git&#39;] $provider = &#39;git&#39;,
   Optional[String[1]] $revision = undef,
 ){
   include ::opengrok::params
@@ -222,7 +220,7 @@ define opengrok::project (
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

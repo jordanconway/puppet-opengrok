@@ -81,7 +81,22 @@ It ensure the service is running.</p>
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -98,14 +113,18 @@ It ensure the service is running.</p>
 12
 13
 14
-15</pre>
+15
+16
+17</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/service.pp', line 7</span>
 
-class opengrok::service {
+class opengrok::service(
+  $service_name,
+){
 
-  service { $::opengrok::service_name:
+  service { $service_name:
     ensure     =&gt; running,
     enable     =&gt; true,
     hasstatus  =&gt; true,
@@ -119,7 +138,7 @@ class opengrok::service {
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

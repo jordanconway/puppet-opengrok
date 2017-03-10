@@ -80,7 +80,55 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>manage_tomcat</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_git</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>install_ctags</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ctags_package</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -122,29 +170,27 @@
 36
 37
 38
-39
-40</pre>
+39</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 6</span>
 
-class opengrok::install {
+class opengrok::install(
+  $manage_tomcat,
+  $manage_git,
+  $install_ctags,
+  $ctags_package,
+){
 
-  if $::opengrok::manage_tomcat {
+  if $manage_tomcat {
     include ::tomcat
-
-    tomcat::install {&#39;tomcat&#39;:
-        install_from_source =&gt; false,
-        package_name        =&gt; &#39;tomcat&#39;,
-        notify              =&gt; Service[&#39;tomcat&#39;],
-    }
   }
-  if $::opengrok::manage_git {
+  if $manage_git {
     include ::git
   }
 
-  if $::opengrok::install_ctags {
-    ensure_packages([$::opengrok::ctags_package], {ensure =&gt; &#39;present&#39;})
+  if $install_ctags {
+    ensure_packages([$ctags_package], {ensure =&gt; &#39;present&#39;})
   }
 
   #setup opengrok directories
@@ -170,7 +216,7 @@ class opengrok::install {
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

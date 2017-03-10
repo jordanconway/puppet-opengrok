@@ -116,13 +116,13 @@
   
     <li>
       
-        <span class='name'>opengrok_url</span>
+        <span class='name'>download_url</span>
       
       
         <span class='type'>(<tt>Pattern[/^https?[^\s]*(\.zip|tar\.gz)$/]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$::opengrok::params::url</tt>)</em>
+        <em class="default">(defaults to: <tt>$::opengrok::params::download_url</tt>)</em>
       
       
         &mdash;
@@ -310,14 +310,28 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
 61
 62
 63
-64</pre>
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 44</span>
 
 class opengrok (
 
-  Pattern[/^https?[^\s]*(\.zip|tar\.gz)$/] $opengrok_url = $::opengrok::params::url,
+  Pattern[/^https?[^\s]*(\.zip|tar\.gz)$/] $download_url = $::opengrok::params::download_url,
   Boolean $manage_git = $::opengrok::params::manage_git,
   Boolean $manage_tomcat = $::opengrok::params::manage_tomcat,
   String $service_name = $::opengrok::params::service_name,
@@ -329,10 +343,24 @@ class opengrok (
 
 ) inherits ::opengrok::params {
 
-  class { &#39;::opengrok::install&#39;: } -&gt;
-  class { &#39;::opengrok::download&#39;: } -&gt;
-  class { &#39;::opengrok::config&#39;: } ~&gt;
-  class { &#39;::opengrok::service&#39;: } -&gt;
+  class { &#39;::opengrok::install&#39;:
+    manage_tomcat =&gt; $manage_tomcat,
+    manage_git    =&gt; $manage_git,
+    install_ctags =&gt; $install_ctags,
+    ctags_package =&gt; $ctags_package,
+  } -&gt;
+  class { &#39;::opengrok::download&#39;:
+    download_url =&gt; $download_url,
+    opengrok_dir =&gt; $opengrok_dir,
+  } -&gt;
+  class { &#39;::opengrok::config&#39;:
+    opengrok_dir  =&gt; $opengrok_dir,
+    projects      =&gt; $projects,
+    catalina_home =&gt; $catalina_home,
+  } ~&gt;
+  class { &#39;::opengrok::service&#39;:
+    service_name =&gt; $service_name,
+  } -&gt;
   Class[&#39;::opengrok&#39;]
 
 }</pre>
@@ -343,7 +371,7 @@ class opengrok (
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

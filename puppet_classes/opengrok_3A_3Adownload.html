@@ -80,7 +80,33 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>download_url</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>opengrok_dir</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -166,11 +192,12 @@
       <td>
         <pre class="code"><span class="info file"># File 'manifests/download.pp', line 6</span>
 
-class opengrok::download {
+class opengrok::download(
+  $download_url,
+  $opengrok_dir,
+){
 
-  $download_url = $::opengrok::url
-
-  $opengrok_fname = get_opengrok_fname($::opengrok::url)
+  $opengrok_fname = get_opengrok_fname($download_url)
 
   if &#39;zip&#39; in $opengrok_fname {
     $has_zip = true
@@ -187,7 +214,6 @@ class opengrok::download {
 
   $version_name = $tarball_name[0,-8]
 
-  $link_dir = $::opengrok::opengrok_dir
 
   $install_dir = &quot;/opt/${version_name}&quot;
 
@@ -195,7 +221,7 @@ class opengrok::download {
     ensure =&gt;  directory,
   }
 
-  file { $link_dir:
+  file { $opengrok_dir:
     ensure  =&gt; link,
     target  =&gt; $install_dir,
     require =&gt; File[$install_dir],
@@ -246,7 +272,7 @@ class opengrok::download {
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  9 10:16:47 2017 by
+  Generated on Fri Mar 10 14:39:35 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

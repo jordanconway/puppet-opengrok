@@ -3,6 +3,15 @@
 #
 # This class is called from opengrok for service config.
 #
+# @param opengrok_dir Specifies the directory to install the OpenGrok binaries to.
+#   Valid options: Absolute Path. Example Value: '/opt/opengrok'
+# @param projects A hash of git projects to be served by OpenGrok.
+#   This can is an alternative to defining opengrok::project types
+#   Valid options: Hash
+# @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
+#   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
+#   Example Value: '/var/lib/tomcat'
+#
 class opengrok::config (
   $projects,
   $opengrok_dir,

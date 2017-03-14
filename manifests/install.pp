@@ -3,6 +3,15 @@
 #
 # This class is called from opengrok for install.
 #
+# @param manage_git Specifies wether or not to manage git,
+#   if true it will include ::git. Valid options: true, false. Example Value: true.
+# @param manage_tomcat Specifies wether or not to manage tomcat,
+#   if true it will include ::tomcat. Valid options: true, false. Example Value: true.
+# @param install_ctags Specifies wether or not to install ctags, will install system
+#  ctags package if true. Valid options: true, false. Example Value: true.
+# @param ctags_package Specifies the name of the system ctags package. Valid options:
+#   String of package name. Example Value: 'ctags'
+#
 class opengrok::install(
   $manage_tomcat,
   $manage_git,

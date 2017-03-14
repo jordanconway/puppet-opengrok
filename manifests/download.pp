@@ -3,6 +3,13 @@
 #
 # This class is called from opengrok for service download.
 #
+# @param download_url Specifies the url to download the OpenGrok binaries from.
+#   Valid options: A String (containing an url pointing to a .zip/tar.gz binary
+#   release from https://github.com/OpenGrok/OpenGrok/releases/). Example Value:
+#   'https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip'.
+# @param opengrok_dir Specifies the directory to install the OpenGrok binaries to.
+#   Valid options: Absolute Path. Example Value: '/opt/opengrok'
+#
 class opengrok::download(
   $download_url,
   $opengrok_dir,

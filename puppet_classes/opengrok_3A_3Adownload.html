@@ -92,6 +92,13 @@
       
       
       
+        &mdash;
+        <div class='inline'><p>Specifies the url to download the OpenGrok binaries from.
+Valid options: A String (containing an url pointing to a .zip/tar.gz binary
+release from <a href="https://github.com/OpenGrok/OpenGrok/releases/">https://github.com/OpenGrok/OpenGrok/releases/</a>). Example Value:
+&#39;<a href="https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip">https://github.com/OpenGrok/OpenGrok/files/467358/opengrok-0.12.1.6.tar.gz.zip</a>&#39;.</p>
+</div>
+      
     </li>
   
     <li>
@@ -102,6 +109,11 @@
         <span class='type'>(<tt>Any</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'><p>Specifies the directory to install the OpenGrok binaries to.
+Valid options: Absolute Path. Example Value: &#39;/opt/opengrok&#39;</p>
+</div>
       
     </li>
   
@@ -115,13 +127,6 @@
         <pre class="lines">
 
 
-6
-7
-8
-9
-10
-11
-12
 13
 14
 15
@@ -187,10 +192,17 @@
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83
+84
+85</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/download.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/download.pp', line 13</span>
 
 class opengrok::download(
   $download_url,
@@ -272,7 +284,7 @@ class opengrok::download(
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:28:39 2017 by
+  Generated on Tue Mar 14 11:33:39 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

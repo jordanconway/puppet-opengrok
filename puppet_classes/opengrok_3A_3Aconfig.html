@@ -85,6 +85,22 @@
   
     <li>
       
+        <span class='name'>opengrok_dir</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Specifies the directory to install the OpenGrok binaries to.
+Valid options: Absolute Path. Example Value: &#39;/opt/opengrok&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>projects</span>
       
       
@@ -92,16 +108,11 @@
       
       
       
-    </li>
-  
-    <li>
-      
-        <span class='name'>opengrok_dir</span>
-      
-      
-        <span class='type'>(<tt>Any</tt>)</span>
-      
-      
+        &mdash;
+        <div class='inline'><p>A hash of git projects to be served by OpenGrok.
+This can is an alternative to defining opengrok::project types
+Valid options: Hash</p>
+</div>
       
     </li>
   
@@ -113,6 +124,12 @@
         <span class='type'>(<tt>Any</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'><p>Specifies the catalina_home directory of your tomcat install, ie:
+where the tomcat &#39;webapps&#39; directory resides. Valid options: Absolute path.
+Example Value: &#39;/var/lib/tomcat&#39;</p>
+</div>
       
     </li>
   
@@ -126,15 +143,6 @@
         <pre class="lines">
 
 
-6
-7
-8
-9
-10
-11
-12
-13
-14
 15
 16
 17
@@ -165,10 +173,19 @@
 42
 43
 44
-45</pre>
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 15</span>
 
 class opengrok::config (
   $projects,
@@ -217,7 +234,7 @@ class opengrok::config (
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:28:39 2017 by
+  Generated on Tue Mar 14 11:33:39 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

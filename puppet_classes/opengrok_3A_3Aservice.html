@@ -93,6 +93,11 @@ It ensure the service is running.</p>
       
       
       
+        &mdash;
+        <div class='inline'><p>Specifies the service name for tomcat. Valid options: A string.
+Example Value: tomcat</p>
+</div>
+      
     </li>
   
 </ul>
@@ -105,9 +110,6 @@ It ensure the service is running.</p>
         <pre class="lines">
 
 
-7
-8
-9
 10
 11
 12
@@ -115,10 +117,13 @@ It ensure the service is running.</p>
 14
 15
 16
-17</pre>
+17
+18
+19
+20</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/service.pp', line 7</span>
+        <pre class="code"><span class="info file"># File 'manifests/service.pp', line 10</span>
 
 class opengrok::service(
   $service_name,
@@ -138,7 +143,7 @@ class opengrok::service(
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:28:39 2017 by
+  Generated on Tue Mar 14 11:33:39 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

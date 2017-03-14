@@ -2,6 +2,7 @@ source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
 group :test do
   gem "metadata-json-lint"
+  gem "parallel_tests"
   gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.9.0'
   gem "puppet-lint-absolute_classname-check"
   gem "puppet-lint-classes_and_types_beginning_with_digits-check"

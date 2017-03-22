@@ -1,3 +1,15 @@
+## 2017-03-22 Release 0.1.5
+### Summary
+Fix tomcat to actually install.
+#### Fixes
+- Include tomcat::install if manage_tomcat = true.
+
+## 2017-03-22 Release 0.1.4
+### Summary
+Minor Changes
+#### Fixes
+- Fix permission in template for forge module.
+
 ## 2017-03-14 Release 0.1.3
 ### Summary
 Minor Changes

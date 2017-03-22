@@ -25,6 +25,12 @@ describe 'opengrok::install' do
           it { is_expected.to contain_file('/var/opengrok/data').with('ensure' => 'directory') }
           it { is_expected.to contain_file('/var/opengrok/etc').with('ensure' => 'directory') }
           it { is_expected.to contain_package('ctags').with('ensure' => 'present') }
+          it do
+            is_expected.to contain_tomcat__install('tomcat').with(
+              'install_from_source' => 'false',
+              'package_name'        => 'tomcat',
+            )
+          end
         end
       end
     end

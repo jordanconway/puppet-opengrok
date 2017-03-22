@@ -21,6 +21,12 @@ class opengrok::install(
 
   if $manage_tomcat {
     include ::tomcat
+
+    tomcat::install {'tomcat':
+      install_from_source => false,
+      package_name        => 'tomcat',
+    }
+
   }
   if $manage_git {
     include ::git

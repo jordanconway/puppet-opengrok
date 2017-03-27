@@ -74,7 +74,7 @@ class opengrok (
     projects      => $projects,
     catalina_home => $catalina_home,
     body_text     => $body_text,
-  } ~>
+  } ->
   class { '::opengrok::service':
     service_name => $service_name,
   } ->

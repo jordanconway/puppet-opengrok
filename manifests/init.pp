@@ -8,13 +8,13 @@
 #
 # @example Defining the opengrok::projects Hash with two git projects
 #   opengrok::projects {
-#     puppet-opengrok => {
-#       source        => 'https://github.com/jordanconway/puppet-opengrok.git',
-#       ensure        => 'latest',
+#     puppet-opengrok           => {
+#       source                  => 'https://github.com/jordanconway/puppet-opengrok.git',
+#       ensure                  => 'latest',
 #     },
-#     opengrok        => {
-#       source        => 'https://github.com/OpenGrok/OpenGrok.git',
-#       ensure        => 'latest',
+#     opengrok                  => {
+#       source                  => 'https://github.com/OpenGrok/OpenGrok.git',
+#       ensure                  => 'latest',
 #     }
 #   }
 #
@@ -43,6 +43,14 @@
 # @param body_text Replaces the default body text for opengrok on the main page.
 #   Valid options: String. Example Value: 'Check out our
 #    <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
+# @param config_hash Simple key => value hash for OpenGrok script environment variables
+#   Valid options: Hash.
+#   Example Value: {
+#    'OPENGROK_SCAN_DEPTH' => '4'
+#    'OPENGROK_VERBOSE'    => 'yes'
+#    'OPENGROK_PROGRESS'   => 'yes'
+#    'IGNORE_PATTERNS'     => '-i bigfile.css'
+#  }
 #
 class opengrok (
 
@@ -56,6 +64,7 @@ class opengrok (
   Optional[Hash] $projects = $::opengrok::params::projects,
   Stdlib::Absolutepath $catalina_home = $::opengrok::params::catalina_home,
   String $body_text = $::opengrok::params::body_text,
+  Hash $config_hash = $::opengrok::params::config_hash,
 
 ) inherits ::opengrok::params {
 
@@ -74,6 +83,7 @@ class opengrok (
     projects      => $projects,
     catalina_home => $catalina_home,
     body_text     => $body_text,
+    config_hash   => $config_hash,
   } ->
   class { '::opengrok::service':
     service_name => $service_name,

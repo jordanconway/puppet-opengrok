@@ -24,6 +24,8 @@
 # @example default $body_text
 #   $body_text = 'You can replace this block of text (in index_body.html) with some more useful
 #      information about your source tree and its organization, with direct links to key parts of code base.'
+# @example default $config_hash
+#   $config_hash = {}
 #
 class opengrok::params {
   case $::osfamily {
@@ -39,6 +41,7 @@ class opengrok::params {
       $catalina_home = '/var/lib/tomcat'
       $body_text = 'You can replace this block of text (in index_body.html) with some more useful
          information about your source tree and its organization, with direct links to key parts of code base.'
+      $config_hash = {}
     }
     default: {
       fail("${::operatingsystem} not supported")

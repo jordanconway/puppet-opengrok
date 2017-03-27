@@ -20,6 +20,7 @@ class opengrok::config (
   $opengrok_dir,
   $catalina_home,
   $body_text,
+  $config_hash,
 ){
 
   #get sources
@@ -33,21 +34,6 @@ class opengrok::config (
     }
   }
 
-  #fix opengrok scipt
-
-  file {"${opengrok_dir}/bin/OpenGrok":
-    ensure  => present,
-    content => template('opengrok/OpenGrok.erb'),
-    mode    => '0555',
-  }
-
-  #run depoloy script
-  exec { 'opengrok_deploy':
-    command => "${opengrok_dir}/bin/OpenGrok deploy",
-    creates => '/var/lib/tomcat/webapps/source.war',
-    require =>  File["${opengrok_dir}/bin/OpenGrok"],
-  }
-
   # Configure body text
   file {"${catalina_home}/webapps/source/index_body.html":
     ensure  => present,
@@ -56,17 +42,49 @@ class opengrok::config (
     require => Exec['opengrok_deploy'],
   }
 
+  #fix opengrok scipt
+  file {"${opengrok_dir}/bin/OpenGrok":
+    ensure  => present,
+    content => template('opengrok/OpenGrok.erb'),
+    mode    => '0555',
+  }
+
+  # OpenGrok config file
+  file {'/var/opengrok/etc/opengrok.conf':
+    ensure  => present,
+    content => template('opengrok/opengrok.conf.erb'),
+    mode    => '0644',
+    require => Exec['opengrok_deploy'],
+  }
+
+  #run depoloy script
+  exec { 'opengrok_deploy':
+    command => "${opengrok_dir}/bin/OpenGrok deploy",
+    creates => '/var/lib/tomcat/webapps/source.war',
+    require => File["${opengrok_dir}/bin/OpenGrok"],
+  }
+
   #run index
   exec { 'opengrok_index':
-    command => "${opengrok_dir}/bin/OpenGrok index",
-    creates => '/var/opengrok/etc/configuration.xml',
-    require =>  File["${opengrok_dir}/bin/OpenGrok"],
+    command     => "${opengrok_dir}/bin/OpenGrok index",
+    creates     => '/var/opengrok/etc/configuration.xml',
+    environment => 'OPENGROK_CONFIGURATION=/var/opengrok/etc/opengrok.conf',
+    require     => [
+      Exec['opengrok_deploy'],
+      File["${opengrok_dir}/bin/OpenGrok"],
+      File['/var/opengrok/etc/opengrok.conf'],
+    ],
   }
 
   # Update index
   exec { 'opengrok_update':
     command     => "${opengrok_dir}/bin/OpenGrok update",
     refreshonly => true,
-    require     => Exec['opengrok_index'],
+    environment => 'OPENGROK_CONFIGURATION=/var/opengrok/etc/opengrok.conf',
+    require     => [
+      Exec['opengrok_index'],
+      File["${opengrok_dir}/bin/OpenGrok"],
+      File['/var/opengrok/etc/opengrok.conf'],
+    ],
   }
 }

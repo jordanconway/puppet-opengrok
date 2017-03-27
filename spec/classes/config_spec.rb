@@ -23,6 +23,7 @@ describe 'opengrok::config' do
               'projects' => '{}',
               'opengrok_dir' => '/opt/opengrok',
               'catalina_home' => '/var/lib/tomcat',
+              'body_text' => 'Look at my repos, they are simply amazing!',
             }
           end
 
@@ -33,6 +34,13 @@ describe 'opengrok::config' do
               'ensure'  => 'present',
               'mode'    => '0555',
             ).with_content(/\/var\/lib\/tomcat/)
+          end
+
+          it do
+            is_expected.to contain_file('/var/lib/tomcat/webapps/source/index_body.html').with(
+              'ensure'  => 'present',
+              'mode'    => '0644',
+            ).with_content(/Look at my repos, they are simply amazing!/)
           end
 
           it do

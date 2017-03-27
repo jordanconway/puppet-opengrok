@@ -15,8 +15,8 @@ describe 'opengrok' do
           it { is_expected.to contain_class('opengrok::params') }
           it { is_expected.to contain_class('opengrok::install').that_comes_before('Class[opengrok::download]') }
           it { is_expected.to contain_class('opengrok::download').that_comes_before('Class[opengrok::config]') }
-          it { is_expected.to contain_class('opengrok::config') }
-          it { is_expected.to contain_class('opengrok::service').that_subscribes_to('Class[opengrok::config]') }
+          it { is_expected.to contain_class('opengrok::config').that_comes_before('Class[opengrok::service]') }
+          it { is_expected.to contain_class('opengrok::service') }
         end
       end
     end

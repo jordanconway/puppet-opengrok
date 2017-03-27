@@ -11,11 +11,15 @@
 # @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'
+# @param body_test Replaces the default body text for opengrok on the main page.
+#   Valid options: String. Example Value: 'Check out our 
+# <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
 #
 class opengrok::config (
   $projects,
   $opengrok_dir,
   $catalina_home,
+  $body_text,
 ){
 
   #get sources
@@ -42,6 +46,14 @@ class opengrok::config (
     command => "${opengrok_dir}/bin/OpenGrok deploy",
     creates => '/var/lib/tomcat/webapps/source.war',
     require =>  File["${opengrok_dir}/bin/OpenGrok"],
+  }
+
+  # Configure body text
+  file {"${catalina_home}/webapps/source/index_body.html":
+    ensure  => present,
+    content => template('opengrok/index_body.html'),
+    mode    => '0644',
+    require => Exec['opengrok_deploy']
   }
 
   #run index

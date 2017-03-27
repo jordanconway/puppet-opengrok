@@ -21,6 +21,9 @@
 #   $service_name = 'tomcat'
 # @example default $catalina_home
 #   $catalina_home = '/var/lib/tomcat'
+# @example default $body_text
+#   $body_text = 'You can replace this block of text (in index_body.html) with some more useful
+#      information about your source tree and its organization, with direct links to key parts of code base.'
 #
 class opengrok::params {
   case $::osfamily {
@@ -34,6 +37,8 @@ class opengrok::params {
       $manage_git = true
       $service_name = 'tomcat'
       $catalina_home = '/var/lib/tomcat'
+      $body_text = 'You can replace this block of text (in index_body.html) with some more useful
+         information about your source tree and its organization, with direct links to key parts of code base.'
     }
     default: {
       fail("${::operatingsystem} not supported")

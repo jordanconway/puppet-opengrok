@@ -40,6 +40,9 @@
 # @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'
+# @param body_test Replaces the default body text for opengrok on the main page.
+#   Valid options: String. Example Value: 'Check out our 
+# <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
 #
 class opengrok (
 
@@ -52,6 +55,7 @@ class opengrok (
   Stdlib::Absolutepath $opengrok_dir = $::opengrok::params::opengrok_dir,
   Optional[Hash] $projects = $::opengrok::params::projects,
   Stdlib::Absolutepath $catalina_home = $::opengrok::params::catalina_home,
+  String $body_text = $::opengrok::params::body_text,
 
 ) inherits ::opengrok::params {
 
@@ -69,6 +73,7 @@ class opengrok (
     opengrok_dir  => $opengrok_dir,
     projects      => $projects,
     catalina_home => $catalina_home,
+    body_text     => $body_text,
   } ~>
   class { '::opengrok::service':
     service_name => $service_name,

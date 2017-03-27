@@ -12,8 +12,8 @@
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'
 # @param body_test Replaces the default body text for opengrok on the main page.
-#   Valid options: String. Example Value: 'Check out our 
-# <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
+#   Valid options: String. Example Value: 'Check out our
+#      <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
 #
 class opengrok::config (
   $projects,
@@ -51,9 +51,9 @@ class opengrok::config (
   # Configure body text
   file {"${catalina_home}/webapps/source/index_body.html":
     ensure  => present,
-    content => template('opengrok/index_body.html'),
+    content => template('opengrok/index_body.html.erb'),
     mode    => '0644',
-    require => Exec['opengrok_deploy']
+    require => Exec['opengrok_deploy'],
   }
 
   #run index

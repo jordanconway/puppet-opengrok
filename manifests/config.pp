@@ -11,7 +11,7 @@
 # @param catalina_home Specifies the catalina_home directory of your tomcat install, ie:
 #   where the tomcat 'webapps' directory resides. Valid options: Absolute path.
 #   Example Value: '/var/lib/tomcat'
-# @param body_test Replaces the default body text for opengrok on the main page.
+# @param body_text Replaces the default body text for opengrok on the main page.
 #   Valid options: String. Example Value: 'Check out our
 #      <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
 #

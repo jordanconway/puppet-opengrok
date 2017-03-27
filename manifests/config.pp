@@ -27,7 +27,7 @@ class opengrok::config (
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
         *       => $options,
-        notify  => Exec['opengrok_index'],
+        notify  => Exec['opengrok_update'],
         require => Exec['opengrok_deploy'],
       }
     }
@@ -63,4 +63,10 @@ class opengrok::config (
     require =>  File["${opengrok_dir}/bin/OpenGrok"],
   }
 
+  # Update index
+  exec { 'opengrok_update':
+    command     => "${opengrok_dir}/bin/OpenGrok update",
+    refreshonly => true,
+    require     => Exec['opengrok_index'],
+  }
 }

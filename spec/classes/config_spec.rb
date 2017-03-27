@@ -56,6 +56,13 @@ describe 'opengrok::config' do
               'creates' => '/var/opengrok/etc/configuration.xml'
             ).that_requires('File[/opt/opengrok/bin/OpenGrok]')
           end
+
+          it do
+            is_expected.to contain_exec('opengrok_update').with(
+              'command' => '/opt/opengrok/bin/OpenGrok update',
+              'refreshonly' => 'true'
+            ).that_requires('Exec[opengrok_index]')
+          end
         end
       end
     end

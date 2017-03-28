@@ -64,7 +64,7 @@ class opengrok (
   Optional[Hash] $projects = $::opengrok::params::projects,
   Stdlib::Absolutepath $catalina_home = $::opengrok::params::catalina_home,
   String $body_text = $::opengrok::params::body_text,
-  Hash $config_hash = $::opengrok::params::config_hash,
+  Optional[Hash] $config_hash = $::opengrok::params::config_hash,
 
 ) inherits ::opengrok::params {
 

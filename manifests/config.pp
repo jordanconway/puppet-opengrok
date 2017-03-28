@@ -14,6 +14,14 @@
 # @param body_text Replaces the default body text for opengrok on the main page.
 #   Valid options: String. Example Value: 'Check out our
 #      <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!'
+# @param config_hash Simple key => value hash for OpenGrok script environment variables
+#   Valid options: Hash.
+#   Example Value: {
+#    'OPENGROK_SCAN_DEPTH' => '4'
+#    'OPENGROK_VERBOSE'    => 'yes'
+#    'OPENGROK_PROGRESS'   => 'yes'
+#    'IGNORE_PATTERNS'     => '-i bigfile.css'
+#  }
 #
 class opengrok::config (
   $projects,

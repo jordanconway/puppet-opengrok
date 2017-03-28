@@ -20,10 +20,11 @@ describe 'opengrok::config' do
         context "opengrok::config class with default parameters" do
           let (:params) do
             {
-              'projects' => '{}',
+              'projects' => {},
               'opengrok_dir' => '/opt/opengrok',
               'catalina_home' => '/var/lib/tomcat',
               'body_text' => 'Look at my repos, they are simply amazing!',
+              'config_hash' => { 'OPENGROK_VERBOSE' => 'no' },
             }
           end
 

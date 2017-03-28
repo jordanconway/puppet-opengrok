@@ -1,4 +1,4 @@
-## 2017-03-22 Release 0.2.0
+## 2017-03-28 Release 0.2.0
 ### Summary
 Add OpenGrok update and pin to vcs updates to reindex.
 Allow setting config parameters for OpenGrok script.

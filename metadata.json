@@ -1,6 +1,6 @@
 {
   "name": "jconway-opengrok",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "jconway",
   "summary": "Module to install and configure OpenGrok",
   "license": "Apache-2.0",

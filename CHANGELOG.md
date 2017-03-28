@@ -1,3 +1,11 @@
+## 2017-03-22 Release 0.2.0
+### Summary
+Add OpenGrok update and pin to vcs updates to reindex.
+Allow setting config parameters for OpenGrok script.
+#### Fixes
+- New parameter config_hash
+- OpenGrok projects will notify OpenGrok update
+
 ## 2017-03-22 Release 0.1.5
 ### Summary
 Fix tomcat to actually install.

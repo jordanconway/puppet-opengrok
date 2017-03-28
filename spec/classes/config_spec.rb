@@ -38,6 +38,13 @@ describe 'opengrok::config' do
           end
 
           it do
+            is_expected.to contain_file('/var/opengrok/etc/opengrok.conf').with(
+              'ensure'  => 'present',
+              'mode'    => '0644',
+            ).with_content(/OPENGROK_VERBOSE=no/)
+          end
+
+          it do
             is_expected.to contain_file('/var/lib/tomcat/webapps/source/index_body.html').with(
               'ensure'  => 'present',
               'mode'    => '0644',

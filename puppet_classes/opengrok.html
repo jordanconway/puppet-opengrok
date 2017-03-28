@@ -82,6 +82,8 @@
 
 <p>This is the basic class needed to install and configure an OpenGrok instance.</p>
 
+<p>}</p>
+
   </div>
 </div>
 <div class="tags">
@@ -100,13 +102,13 @@
 </div></p>
       
       <pre class="example code"><code>opengrok::projects {
-  puppet-opengrok =&gt; {
-    source        =&gt; &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;,
-    ensure        =&gt; &#39;latest&#39;,
+  puppet-opengrok           =&gt; {
+    source                  =&gt; &#39;https://github.com/jordanconway/puppet-opengrok.git&#39;,
+    ensure                  =&gt; &#39;latest&#39;,
   },
-  opengrok        =&gt; {
-    source        =&gt; &#39;https://github.com/OpenGrok/OpenGrok.git&#39;,
-    ensure        =&gt; &#39;latest&#39;,
+  opengrok                  =&gt; {
+    source                  =&gt; &#39;https://github.com/OpenGrok/OpenGrok.git&#39;,
+    ensure                  =&gt; &#39;latest&#39;,
   }
 }</code></pre>
     
@@ -280,6 +282,48 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>body_text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::opengrok::params::body_text</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Replaces the default body text for opengrok on the main page.
+Valid options: String. Example Value: &#39;Check out our
+ <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_hash</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::opengrok::params::config_hash</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Simple key =&gt; value hash for OpenGrok script environment variables
+Valid options: Hash.
+Example Value: {
+ &#39;OPENGROK_SCAN_DEPTH&#39; =&gt; &#39;4&#39;
+ &#39;OPENGROK_VERBOSE&#39;    =&gt; &#39;yes&#39;
+ &#39;OPENGROK_PROGRESS&#39;   =&gt; &#39;yes&#39;
+ &#39;IGNORE_PATTERNS&#39;     =&gt; &#39;-i bigfile.css&#39;</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -290,17 +334,6 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
         <pre class="lines">
 
 
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
 55
 56
 57
@@ -324,10 +357,25 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 44</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 55</span>
 
 class opengrok (
 
@@ -340,6 +388,8 @@ class opengrok (
   Stdlib::Absolutepath $opengrok_dir = $::opengrok::params::opengrok_dir,
   Optional[Hash] $projects = $::opengrok::params::projects,
   Stdlib::Absolutepath $catalina_home = $::opengrok::params::catalina_home,
+  String $body_text = $::opengrok::params::body_text,
+  Optional[Hash] $config_hash = $::opengrok::params::config_hash,
 
 ) inherits ::opengrok::params {
 
@@ -357,7 +407,9 @@ class opengrok (
     opengrok_dir  =&gt; $opengrok_dir,
     projects      =&gt; $projects,
     catalina_home =&gt; $catalina_home,
-  } ~&gt;
+    body_text     =&gt; $body_text,
+    config_hash   =&gt; $config_hash,
+  } -&gt;
   class { &#39;::opengrok::service&#39;:
     service_name =&gt; $service_name,
   } -&gt;
@@ -371,7 +423,7 @@ class opengrok (
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:33:50 2017 by
+  Generated on Tue Mar 28 11:00:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

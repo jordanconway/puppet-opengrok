@@ -190,7 +190,13 @@ String of package name. Example Value: &#39;ctags&#39;</p>
 45
 46
 47
-48</pre>
+48
+49
+50
+51
+52
+53
+54</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 15</span>
@@ -204,6 +210,12 @@ class opengrok::install(
 
   if $manage_tomcat {
     include ::tomcat
+
+    tomcat::install {&#39;tomcat&#39;:
+      install_from_source =&gt; false,
+      package_name        =&gt; &#39;tomcat&#39;,
+    }
+
   }
   if $manage_git {
     include ::git
@@ -236,7 +248,7 @@ class opengrok::install(
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:33:50 2017 by
+  Generated on Tue Mar 28 11:00:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

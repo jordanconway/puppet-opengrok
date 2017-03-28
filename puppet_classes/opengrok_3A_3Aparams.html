@@ -139,6 +139,19 @@ It sets variables according to platform.</p>
       
       <pre class="example code"><code><span class='gvar'>$catalina_home</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/var/lib/tomcat</span><span class='tstring_end'>&#39;</span></span></code></pre>
     
+      
+        <p class="example_title"><div class='inline'><p>default $body_text</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='gvar'>$body_text</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>You can replace this block of text (in index_body.html) with some more useful
+   information about your source tree and its organization, with direct links to key parts of code base.</span><span class='tstring_end'>&#39;</span></span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>default $config_hash</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='gvar'>$config_hash</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OPENGROK_VERBOSE</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>no</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span></code></pre>
+    
   </div>
 
 
@@ -149,11 +162,6 @@ It sets variables according to platform.</p>
         <pre class="lines">
 
 
-25
-26
-27
-28
-29
 30
 31
 32
@@ -166,10 +174,18 @@ It sets variables according to platform.</p>
 39
 40
 41
-42</pre>
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 25</span>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 30</span>
 
 class opengrok::params {
   case $::osfamily {
@@ -183,6 +199,9 @@ class opengrok::params {
       $manage_git = true
       $service_name = &#39;tomcat&#39;
       $catalina_home = &#39;/var/lib/tomcat&#39;
+      $body_text = &#39;You can replace this block of text (in index_body.html) with some more useful
+         information about your source tree and its organization, with direct links to key parts of code base.&#39;
+      $config_hash = { &#39;OPENGROK_VERBOSE&#39; =&gt; &#39;no&#39; }
     }
     default: {
       fail(&quot;${::operatingsystem} not supported&quot;)
@@ -196,7 +215,7 @@ class opengrok::params {
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:33:50 2017 by
+  Generated on Tue Mar 28 11:00:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>

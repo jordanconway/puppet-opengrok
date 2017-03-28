@@ -77,6 +77,8 @@
 
 <p>This class is called from opengrok for service config.</p>
 
+<p>}</p>
+
   </div>
 </div>
 <div class="tags">
@@ -133,6 +135,44 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>body_text</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Replaces the default body text for opengrok on the main page.
+Valid options: String. Example Value: &#39;Check out our
+   <a href="xref/puppet_opengrok>puppet_opengrok</a> repo!&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_hash</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Simple key =&gt; value hash for OpenGrok script environment variables
+Valid options: Hash.
+Example Value: {
+ &#39;OPENGROK_SCAN_DEPTH&#39; =&gt; &#39;4&#39;
+ &#39;OPENGROK_VERBOSE&#39;    =&gt; &#39;yes&#39;
+ &#39;OPENGROK_PROGRESS&#39;   =&gt; &#39;yes&#39;
+ &#39;IGNORE_PATTERNS&#39;     =&gt; &#39;-i bigfile.css&#39;</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -143,17 +183,6 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
         <pre class="lines">
 
 
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
 26
 27
 28
@@ -182,15 +211,61 @@ Example Value: &#39;/var/lib/tomcat&#39;</p>
 51
 52
 53
-54</pre>
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 15</span>
+        <pre class="code"><span class="info file"># File 'manifests/config.pp', line 26</span>
 
 class opengrok::config (
   $projects,
   $opengrok_dir,
   $catalina_home,
+  $body_text,
+  $config_hash,
 ){
 
   #get sources
@@ -198,34 +273,65 @@ class opengrok::config (
     $projects.each |$resource, $options| {
       ::opengrok::project { $resource:
         *       =&gt; $options,
-        notify  =&gt; Exec[&#39;opengrok_index&#39;],
+        notify  =&gt; Exec[&#39;opengrok_update&#39;],
         require =&gt; Exec[&#39;opengrok_deploy&#39;],
       }
     }
   }
 
-  #fix opengrok scipt
+  # Configure body text
+  file {&quot;${catalina_home}/webapps/source/index_body.html&quot;:
+    ensure  =&gt; present,
+    content =&gt; template(&#39;opengrok/index_body.html.erb&#39;),
+    mode    =&gt; &#39;0644&#39;,
+    require =&gt; Exec[&#39;opengrok_deploy&#39;],
+  }
 
+  #fix opengrok scipt
   file {&quot;${opengrok_dir}/bin/OpenGrok&quot;:
     ensure  =&gt; present,
     content =&gt; template(&#39;opengrok/OpenGrok.erb&#39;),
     mode    =&gt; &#39;0555&#39;,
   }
 
+  # OpenGrok config file
+  file {&#39;/var/opengrok/etc/opengrok.conf&#39;:
+    ensure  =&gt; present,
+    content =&gt; template(&#39;opengrok/opengrok.conf.erb&#39;),
+    mode    =&gt; &#39;0644&#39;,
+    require =&gt; Exec[&#39;opengrok_deploy&#39;],
+  }
+
   #run depoloy script
   exec { &#39;opengrok_deploy&#39;:
     command =&gt; &quot;${opengrok_dir}/bin/OpenGrok deploy&quot;,
     creates =&gt; &#39;/var/lib/tomcat/webapps/source.war&#39;,
-    require =&gt;  File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
+    require =&gt; File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
   }
 
   #run index
   exec { &#39;opengrok_index&#39;:
-    command =&gt; &quot;${opengrok_dir}/bin/OpenGrok index&quot;,
-    creates =&gt; &#39;/var/opengrok/etc/configuration.xml&#39;,
-    require =&gt;  File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
+    command     =&gt; &quot;${opengrok_dir}/bin/OpenGrok index&quot;,
+    creates     =&gt; &#39;/var/opengrok/etc/configuration.xml&#39;,
+    environment =&gt; &#39;OPENGROK_CONFIGURATION=/var/opengrok/etc/opengrok.conf&#39;,
+    require     =&gt; [
+      Exec[&#39;opengrok_deploy&#39;],
+      File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
+      File[&#39;/var/opengrok/etc/opengrok.conf&#39;],
+    ],
   }
 
+  # Update index
+  exec { &#39;opengrok_update&#39;:
+    command     =&gt; &quot;${opengrok_dir}/bin/OpenGrok update&quot;,
+    refreshonly =&gt; true,
+    environment =&gt; &#39;OPENGROK_CONFIGURATION=/var/opengrok/etc/opengrok.conf&#39;,
+    require     =&gt; [
+      Exec[&#39;opengrok_index&#39;],
+      File[&quot;${opengrok_dir}/bin/OpenGrok&quot;],
+      File[&#39;/var/opengrok/etc/opengrok.conf&#39;],
+    ],
+  }
 }</pre>
       </td>
     </tr>
@@ -234,7 +340,7 @@ class opengrok::config (
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 14 11:33:50 2017 by
+  Generated on Tue Mar 28 11:00:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.3).
 </div>
